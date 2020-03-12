@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心页面</title>
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/balancelist.css">
+</head>
+<body>
+<div CLASS="layout">
+    <div class="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">数字版权管理系统</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li > <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">认证原创</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./imageAuthor.html">认证资产</a></li>
+                            </ul></li>
+                        <li><a href="./userindex.html">我的主页</a></li>
+                        <li class="active"><a href="./balancelistt.html">我的资产</a></li>
+                        <li  ><a href="./auctionlistt.html">交易所</a></li>
+                        <li><a href="./mytrans.html">我的版权交易</a></li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <ul class="containerlist">
+
+
+
+        </ul>
+    </div>
+</div>
+<script src="../assets/jquery/jquery.js"></script>
+<script src="../assets/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../assets/template-native/template-native.js"></script>
+<script type="text/template" id="templateId">
+    <%for(var i=0;i<data.contents.length;i++){%>
+    <li >
+        <div >
+            <div>
+                <p>【我的资产】<%=data.contents[i].title%></p>
+                <a style="float: right" class="account_event" href="" data-tokenid="<%=data.contents[i].token_id%>" data-account="<%=data.contents[i].content_hash%>">交易</a>
+            </div>
+            <a style="float: right;width: 40px;margin-right: 5px"  class="recode" href="" data-tokenid="<%=data.contents[i].token_id%>">记录</a>
+            <a style="float: right;width: 80px;margin-right: 5px"  class="copyrecode" href="" data-tokenid="<%=data.contents[i].token_id%>">版权记录</a>
+            <a style="float: right;width: 80px;margin-right: 5px"  class="setpass" href="" data-pixhash="<%=data.contents[i].content_hash%>">设置秘钥</a>
+            <a style="float: right;width: 80px;margin-right: 5px"  class="lookpass" href="" data-pixhash="<%=data.contents[i].content_hash%>">查看下载码</a>
+        </div>
+
+    </li>
+    <%}%>
+</script>
+<script>
+    $(function(){
+            window.alert = function(name){
+            var iframe = document.createElement("IFRAME");
+            iframe.style.display="none";
+            iframe.setAttribute("src", 'data:text/plain');
+            document.documentElement.appendChild(iframe);
+            window.frames[0].window.alert(name);
+            iframe.parentNode.removeChild(iframe);
+        }
+        var pdj= {
+            init: function () {
+                this.checkUser();
+                this.initAuction();
+                this.tran();
+                this.copytran();
+                this.lookpass();
+                this.setpass();
+            },
+            checkUser: function () {
+                var _this=this;
+                $.ajax({
+                    url:"/session",
+                    type:"get",
+                    success:function(data){
+                        if(data.errno!=0){
+                            window.location.href="../";
+                        }else{
+                            _this.queryBalance();
+                        }
+                    }
+                });
+            },
+            initAuction:function(){
+                $(".containerlist").on("click",".account_event",function(){
+                    var accounthash=this.dataset['account'];
+                    var tokenid=parseInt(this.dataset['tokenid']);
+
+                    var obj={
+                        content_hash:accounthash,
+                        token_id:tokenid
+
+                    };
+                    console.log(obj)
+                    var strparams=JSON.stringify(obj);
+                    $.ajax({
+                        type:"post",
+                        url:"/auction",
+                        contentType:"application/json",
+                        data:strparams,
+                        success:function(data){
+                            alert("已添加至交易所")
+                        }
+                    })
+
+
+
+                })
+            },
+            tran:function(){
+                $(".containerlist").on("click",".recode",function(){
+                    var tokenid=parseInt(this.dataset['tokenid']);
+
+                    var obj={
+                        token_id:tokenid
+
+                    };
+                    console.log(obj)
+                    var strparams=JSON.stringify(obj);
+                    $.ajax({
+                        type:"post",
+                        url:"/tran",
+                        contentType:"application/json",
+                        data:strparams,
+                        success:function(data){
+                            var copycopy=data.data.ass;
+                            var copys=copycopy.split(";");
+                            var lookcopy="";
+                            for(var i=0;i<copys.length;i++){
+                                lookcopy +=copys[i]+"\n";
+                            }
+                            alert("copyright©以下用户购买了您的资产\n注：已获得商用版权授权\n"+lookcopy)
+                        }
+                    })
+
+
+
+                })
+            },
+            copytran:function(){
+                $(".containerlist").on("click",".copyrecode",function(){
+                    var tokenid=parseInt(this.dataset['tokenid']);
+
+                    var obj={
+                        token_id:tokenid
+
+                    };
+                    console.log(obj)
+                    var strparams=JSON.stringify(obj);
+                    $.ajax({
+                        type:"post",
+                        url:"/copytran",
+                        contentType:"application/json",
+                        data:strparams,
+                        success:function(data){
+                            var copycopy=data.data.cop;
+                            var copys=copycopy.split(";");
+                            var lookcopy="";
+                            for(var i=0;i<copys.length;i++){
+                                lookcopy +=copys[i]+"\n";
+                            }
+                            alert("copyright©版权声明：以下是资产版权交易记录\n"+lookcopy)
+                        }
+                    })
+
+
+
+                })
+            },
+            lookpass:function(){
+                $(".containerlist").on("click",".lookpass",function(){
+                    var pixhash=this.dataset['pixhash'];
+                    $.ajax({
+                        type:"get",
+                        url:"/lookpass",
+                        data:{
+                            hhash:pixhash
+                        },
+                        success:function(data){
+
+                            if(data.errno==0){
+                                alert("copyright©\n资产秘钥为："+data.data.cpass+"\n下载码为："+data.data.apass+"\n"+data.data.okok);
+                            }else{
+                                alert("失败！"+data.errno+data.errmsg);
+                            }
+                        }
+                    })
+
+
+
+                })
+            },
+            setpass:function(){
+                $(".containerlist").on("click",".setpass",function(){
+                    var pixhash=this.dataset['pixhash'];
+                    var apass = window.prompt("请输入下载码","");
+                    $.ajax({
+                        type:"get",
+                        url:"/setpass",
+                        data:{
+                            hhash:pixhash,
+                            aapass:apass
+                        },
+                        success:function(data){
+
+                            if(data.errno==0){
+                                alert("设置成功！");
+                            }else{
+                                alert("失败！"+data.errno+data.errmsg);
+                            }
+                        }
+                    })
+
+
+
+                })
+            },
+            queryBalance:function(){
+                $.ajax({
+                    url:"/content",
+                    type:"get",
+                    success:function(data){
+
+                        var html=template("templateId",data);
+                        $(".containerlist").html(html);
+                    }
+                })
+            }
+        }
+        pdj.init();
+    });
+</script>
+</body>
+</html>

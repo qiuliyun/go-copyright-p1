@@ -1,0 +1,3 @@
+call config.init
+Usage: go-copyright-p1 -c config_file [-v] [-h]
+call dbs.Init <nil>

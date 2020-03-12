@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原创</title>
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
+    <style>
+            ol,ul{
+                 list-style: none;
+            }
+            a{
+                 text-decoration: none;
+                 color: #333;
+            }
+            a:hover{
+                  text-decoration: none;
+            }
+            .mybanner{
+                 width: 100%;
+            }
+            .carousel-inner > .item > img, .carousel-inner > .item > a > img{
+                height: 600px;
+            }
+            .mybanner_Image img{
+                  width: 100%;
+                  display: block;
+            }
+
+            .yc_top{
+                 position: relative;
+            }
+            .yc_top .yc_nav_header{
+                 margin-bottom: 0px;
+                 position: absolute;
+                 width: 100%;
+                 left: 0;
+                 top: 0;
+                 z-index: 99;
+            }
+            .yc_top .yc_nav_header .yc_nav{
+                 width: 90%;
+                 margin: 0 auto;
+                 background: none;
+                 border: none;
+
+            }
+            .yc_top .yc_nav_header .yc_nav a{
+                 color: #fff;
+            }
+            .yc_top .yc_nav_header .yc_navbar_nav li.active a{
+                 background: none;
+                 font-size: 16px;
+                 color: #fff;
+            }
+
+            .yc_top .yc_nav_bar{
+                position: absolute;
+                left: 0;
+                bottom: 10px;
+                width: 100%;
+
+            }
+
+            .yc_top .yc_nav_bar ul{
+
+            }
+
+            .yc_top .yc_nav_bar ul li{
+                    width: 50%;
+                    float: left;
+            }
+            .yc_top .yc_nav_bar ul li a{
+
+                    height: 50px;
+                    line-height: 50px;
+                    width: 200px;
+                    background: #0cb762;
+                    border-radius: 5px;
+                    text-align: center;
+                    color: #fff;
+
+            }
+            .yc_top .yc_nav_bar ul li a:hover{
+                   text-decoration: none;
+            }
+            .yc_top .yc_nav_bar ul li:nth-of-type(1) a{
+                    float: right;
+                    margin-right: 17%;
+            }
+            .yc_top .yc_nav_bar ul li:nth-of-type(2) a{
+                    float: left;
+                    margin-left: 10%;
+            }
+
+            .yc_content .content_top  li{
+                    width: 50%;
+                    float: left;
+                    text-align: center;
+
+            }
+            .yc_content .content_top  li:nth-child(1){
+
+            }
+            .yc_content .content_top  li div{
+                    margin-top: 20px;
+            }
+            .yc_content .content_top  li span{
+                     font-size: 20px;
+
+            }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="layout">
+      <div class="yc_top">
+          <div class="yc_nav_header">
+             <nav class="yc_nav navbar navbar-default">
+              <div class="container-fluid">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                  </div>
+
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav yc_navbar_nav">
+                          <li class="active"><a href="#">首页</a></li>
+                      </ul>
+
+                      <ul class="nav navbar-nav navbar-right">
+                          <li><a href="login.html">登录</a></li>
+                          <li><a href="register.html">注册</a></li>
+                      </ul>
+                  </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+          </nav>
+          </div>
+          <div id="carousel-example-generic" class="yc_banner carousel slide mybanner" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+              </ol>
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner mybanner_Image" role="listbox">
+                  <div class="item active">
+                      <img src="../upload/nanzi_副本.jpg" alt="...">
+                      <div class="carousel-caption">
+
+                      </div>
+                  </div>
+                  <div class="item">
+                      <img src="../upload/qukuailian.jpg" alt="...">
+                      <div class="carousel-caption">
+
+                      </div>
+                  </div>
+                  <div class="item">
+                      <img src="../upload/kaihui.jpg" alt="...">
+                      <div class="carousel-caption">
+                      </div>
+                  </div>
+                  <div class="item">
+                      <img src="../upload/banquan.jpg" alt="...">
+                      <div class="carousel-caption">
+
+                      </div>
+                  </div>
+
+              </div>
+              <!-- Controls -->
+              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+              </a>
+          </div>
+
+          <div class="yc_nav_bar">
+              <ul>
+
+              </ul>
+          </div>
+      </div>
+
+
+
+    </div>
+    <script src="../assets/jquery/jquery.js"></script>
+    <script src="../assets/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

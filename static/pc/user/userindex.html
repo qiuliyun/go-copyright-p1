@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心页面</title>
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/userindex.css">
+</head>
+<body>
+    <div CLASS="layout">
+      <div class="header">
+          <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">数字版权管理系统</a>
+                  </div>
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav">
+                          <li >
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">认证原创</a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="./imageAuthor.html">认证资产</a></li>
+                              </ul>
+                          </li>
+                          <li><a href="./balancelistt.html">我的资产</a></li>
+                          <li><a href="./auctionlistt.html">交易所</a></li>
+                          <li><a href="./mytrans.html">我的版权交易</a></li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                          <li class="welcome" style=" text-align: center;margin-top: 15px">
+                          </li>
+
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+      </div>
+      <div class="container">
+           <div class="img_list">
+
+           </div>
+           <div class="notice_list">
+               <h3>系统公告</h3>
+               <div class="line"></div>
+               <ul>
+                   <li>
+                       <p>【产品更新】版权全新改版，重大功能齐上线
+                       </p>
+                   </li>
+                   <li>
+                       <p>【产品更新】访问全新改版，重大功能齐上线</p>
+                   </li>
+                   <li>
+                       <p>【产品更新】UI全新改版，重大功能齐上线</p>
+                   </li>
+                   <li>
+                       <p>【产品更新】注册全新改版，重大功能齐上线</p>
+                   </li>
+                   <li>
+                       <p>【产品更新】登录全新改版，重大功能齐上线</p>
+                   </li>
+                   <li>
+                       <p>【产品更新】交易全新改版，重大功能齐上线</p>
+                   </li>
+
+                   <li>
+                       <p>【产品更新】资产全新改版，重大功能齐上线</p>
+                   </li>
+
+                   <li>
+                       <p>【产品更新】功能全新改版，重大功能齐上线</p>
+                   </li>
+
+                   <li>
+                       <p>【产品更新】界面全新改版，重大功能齐上线</p>
+                   </li>
+
+                   <li>
+                       <p>【产品更新】啥都全新改版，重大功能齐上线</p>
+                   </li>
+               </ul>
+           </div>
+      </div>
+    </div>
+    <script src="../assets/jquery/jquery.js"></script>
+    <script src="../assets/bootstrap/dist/js/bootstrap.js"></script>
+    <script>
+            $(function(){
+                 var pdj={
+                     init:function(){
+                          this.checkUser();
+                     },
+                     checkUser:function(){
+                          $.ajax({
+                               url:"/session",
+                               type:"get",
+                               success:function(data){
+                                   console.log(data);
+                                   if(data.errno!=0){
+                                          window.location.href="../";
+                                    }else{
+                                       var money=data.data.money;
+                                       var moneylength =money.length;
+                                       var wei =moneylength%18;
+                                       var tmoney=money.substr(0,wei)+"."+money.substr(wei);
+                                        $(".welcome").html("welcome:"+data.data.name+"  以太币："+tmoney)
+                                   }
+
+                               }
+                          })
+                     }
+
+                 };
+                 pdj.init();
+
+            });
+    </script>
+</body>
+</html>

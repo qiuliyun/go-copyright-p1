@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心页面</title>
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/imageAuthor.css">
+</head>
+<body>
+<div CLASS="layout">
+    <div class="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">copyright</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">认证原创</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./imageAuthor.html">认证资产</a></li>
+                            </ul></li>
+                        <li><a href="./userindex.html">我的主页</a></li>
+                        <li ><a href="./balancelistt.html">我的资产</a></li>
+                        <li  ><a href="./auctionlistt.html">交易所</a></li>
+                        <li><a href="./mytrans.html">我的版权交易</a></li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+
+        <div class="artilce_content">
+            <div class="article_content_left">
+                       <a href="javascript:;" class="input_style_file_upload" title="拖拽图片上传">
+                           <span class="glyphicon glyphicon-plus">
+                                <p>点击上传或拖拽资产文件到此</p>
+                                <input type="file" id="input_file_imgaeId" name="fileName" data-url="/content">
+                           </span>
+                       </a>
+            </div>
+            <div class="article_content_right">
+                <a href="javascript:;">认证资产</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/jquery/jquery.js"></script>
+<script src="../assets/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../assets/jquery-fileupload/jquery.ui.widget.js"></script>
+<script src="../assets/jquery-fileupload/jquery.fileupload.js"></script>
+<script>
+        $(function(){
+            $("#input_file_imgaeId").fileupload({
+                autoLoad:true,
+                done:function(e,data){
+                    console.log(data);
+                    if(data._response.result.errno==0){
+                         alert("上传成功！")
+                     }else{
+                          alert(data._response.result.errmsg);
+                     }
+                }
+            });
+
+
+        });
+</script>
+</body>
+</html>

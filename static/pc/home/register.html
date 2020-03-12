@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原创</title>
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
+    <style>
+        ol,ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+            color: #333;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        .mybanner{
+            width: 100%;
+            height: 600px;
+        }
+        .carousel-inner > .item > img, .carousel-inner > .item > a > img{
+            height: 600px;
+        }
+        .mybanner_Image img{
+            width: 100%;
+            display: block;
+
+        }
+
+        .yc_top{
+            position: relative;
+        }
+        .yc_top .yc_nav_header{
+            margin-bottom: 0px;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+        .yc_top .yc_nav_header .yc_nav{
+            width: 90%;
+            margin: 0 auto;
+            background: none;
+            border: none;
+
+        }
+        .yc_top .yc_nav_header .yc_nav a{
+            color: #fff;
+        }
+        .yc_top .yc_nav_header .yc_navbar_nav li.active a{
+            background: none;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .yc_top .yc_nav_bar{
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            width: 100%;
+
+        }
+
+        .yc_top .yc_login{
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            width: 270px;
+            height: 330px;
+            margin-left: -125px;
+            background: #fff;
+            border-radius: 2px;
+
+        }
+        .yc_top .yc_login .yc_login_top{
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .yc_top .yc_login .yc_login_top span:nth-of-type(1){
+            margin-right: 10px;
+
+        }
+
+        .yc_top .yc_login .yc_login_top a:nth-of-type(2) span{
+            margin-left: 10px;
+            border-bottom: 2px solid #0cb762;
+            color: #0cb762;
+            padding-bottom: 5px;
+        }
+
+
+        .yc_login_form {
+
+        }
+
+        .yc_login_form div{
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+        .yc_login_form div:nth-of-type(1) span{
+
+        }
+        .yc_login_form div input{
+            width: 100%;
+            border: none;
+            font-size: 12px;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+            -webkit-appearance: none;
+            padding-left: 10px;
+        }
+
+        .yc_login .yc_login_btn{
+            width: 80%;
+            margin: 0 auto;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 20px;
+            border-radius: 3px;
+            background: #0cb762;
+            display: block;
+            text-align: center;
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        .yc_login_bottom{
+            width: 80%;
+            margin: 10px auto;
+        }
+
+        .yc_login_bottom input{
+            float: left;
+        }
+
+        .yc_login_bottom a:nth-of-type(1){
+            float: left;
+            margin-left: 10px;
+        }
+
+        .yc_login_bottom a:nth-of-type(2){
+            float: right;
+            margin-right: 10px;
+        }
+
+
+
+        .yc_content .content_top  li{
+            width: 50%;
+            float: left;
+            text-align: center;
+
+        }
+        .yc_content .content_top  li:nth-child(1){
+
+        }
+        .yc_content .content_top  li div{
+            margin-top: 20px;
+        }
+        .yc_content .content_top  li span{
+            font-size: 20px;
+
+        }
+
+
+
+
+
+        .yc_content_bottom ul{
+
+        }
+        .yc_content_bottom ul li{
+            width: 25%;
+            float: left;
+        }
+        .yc_content_bottom ul li a{
+            text-align: center;
+        }
+        .yc_content_bottom ul li a h3{
+            text-align: center;
+            width: 70%;
+            font-size: 18px;
+        }
+        .yc_content_bottom ul li a img{
+            width: 70%;
+        }
+        .yc_content_bottom ul li a p{
+            font-size: 12px;
+            width: 70%;
+            margin-top: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="layout">
+    <div class="yc_top">
+        <div class="yc_nav_header">
+            <nav class="yc_nav navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav yc_navbar_nav">
+                            <li class="active"><a href="index.html">首页</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="login.html">登录</a></li>
+                            <li><a href="register.html">注册</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+        <div id="carousel-example-generic" class="yc_banner carousel slide mybanner" data-ride="carousel">
+
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner mybanner_Image" role="listbox">
+                <div class="item active">
+                    <img src="../upload/nanzi_副本.jpg" alt="...">
+                    <div class="carousel-caption">
+
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../upload/qukuailian.jpg" alt="...">
+                    <div class="carousel-caption">
+
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../upload/kaihui.jpg" alt="...">
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../upload/banquan.jpg" alt="...">
+                    <div class="carousel-caption">
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <div class="yc_nav_bar">
+            <div class="yc_login">
+                <div class="yc_login_top">
+                    <a href="login.html"><span>登录</span></a> | <a href="register.html"> <span>注册</span></a>
+                </div>
+                <form action="" class="yc_login_form">
+                    <div>
+                        <span class="icon_user"></span>
+                        <input type="text" class="yc_login_username" name="email" placeholder="注册邮箱">
+                    </div>
+                    <div>
+                        <span class="icon_pass"></span>
+                        <input type="text" class="yc_login_password" name="username" placeholder="用户名">
+                    </div>
+                    <div>
+                        <span class="icon_pass"></span>
+                        <input type="text" class="yc_login_password" name="identity_id" placeholder="密码">
+                    </div>
+                </form>
+
+                <a href="javascript:;" class="yc_login_btn">
+                    注册
+                </a>
+                <div class="yc_login_bottom">
+                    <input type="checkbox">
+                    <a href="javascript:;">记住我</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<script src="../assets/jquery/jquery.js"></script>
+<script src="../assets/bootstrap/dist/js/bootstrap.js"></script>
+
+<script>
+        $(function(){
+              $(".yc_login_btn").on("click",function(){
+
+                  var datas=$(".yc_login_form").serializeArray();
+                  var params={};
+                  for(var i=0;i<datas.length;i++){
+                      params[datas[i].name]=datas[i].value
+                  }
+                  var strParams=JSON.stringify(params);
+                       $.ajax({
+                            url:"/account",
+							contentType:"application/json",
+                            data:strParams,
+                            method:"post",
+                            success:function(data){
+                                  if(data.errno==0){
+                                       window.location.href='../user/userindex.html';
+                                  }else{
+                                       alert(data.errmsg);
+                                  }
+                            }
+                       })
+              });
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心页面</title>
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/userindex.css">
+</head>
+<body>
+<div CLASS="layout">
+    <div class="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">copyright</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li > <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">认证原创</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./imageAuthor.html">认证资产</a></li>
+                            </ul></li>
+                        <li><a href="./userindex.html">我的主页</a></li>
+                        <li><a href="./balancelistt.html">我的资产</a></li>
+                        <li><a href="auctionlistt.html">交易所</a></li>
+                        <li  class="active"><a href="./mytrans.html">我的版权交易</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="img_list">
+
+        </div>
+        <div class="notice_list">
+            <h3>待确认申请</h3>
+            <div class="line"></div>
+            <ul class="containerlist">
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../assets/jquery/jquery.js"></script>
+<script src="../assets/bootstrap/dist/js/bootstrap.js"></script>
+<script>
+    $(function(){
+        $.ajax({
+            url:"/session",
+            type:"get",
+            success:function(data){
+                console.log(data);
+                if(data.errno!=0){
+                    window.location.href="../";
+                }
+            }
+        });
+            $.ajax({
+                url:"/oklist",
+                type:"get",
+                success:function(data) {
+                    console.log(data);
+                    var html = "";
+                    for (var i = 0; i < data.data.length; i++) {
+                        html += "<li><div>【"+data.data[i].username+"】正在申请【"+data.data[i].title+"】的版权";
+                            html += "<a  class='ok' data-tokenid='" + data.data[i].token_id + "' data-address='" + data.data[i].address + " ' data-okname='"+data.data[i].username +"'>确认</a>";
+                            html += "<a  class='no' data-tokenid='" + data.data[i].token_id + "' >驳回</a>";
+                            html += "</div></li>";
+                        $(".containerlist").html(html);
+                    }
+                }
+            });
+        $(".containerlist").on("click",".no",function(){
+            var n=confirm("copyright©是否拒绝版权交易申请？");
+            if(n==true){
+                var tokenID = this.dataset['tokenid'];
+                $.ajax({
+                    url:"/no",
+                    type:"get",
+                    data:{
+                        tokenid:tokenID,
+                    },
+                    success:function(data) {
+
+                        if(data.errno==0){
+                            alert("拒绝成功！资产可以在交易所继续交易");
+                        }else{
+                            alert("拒绝失败！"+data.errno+data.errmsg);
+                        }
+                    }
+                })
+            }
+
+        });
+        $(".containerlist").on("click",".ok",function(){
+            var n=confirm("copyright©\n是否同意版权交易申请？\n在点击确认前，请认真阅读以下条款，以保证版权安全\n是否本人操作？\n是否确认转让本资产版权？\n copyright©版权声明");
+            if(n==true){
+                var tokenID = this.dataset['tokenid'];
+                var s = this.dataset['address'];
+                address1=s.substring(0,s.length-1);
+                var okname = this.dataset['okname'];
+                $.ajax({
+                    url:"/ok",
+                    type:"get",
+                    data:{
+                        tokenid:tokenID,
+                        addr:address1,
+                        okname:okname
+                    },
+                    success:function(data) {
+
+                        if(data.errno==0){
+                            alert("转让成功！");
+                        }else{
+                            alert("转让失败！"+data.errno+data.errmsg);
+                        }
+                    }
+                })
+            }
+
+        });
+    })
+</script>
+</body>
+</html>

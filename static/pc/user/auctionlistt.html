@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心页面</title>
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/userindex.css">
+</head>
+<body>
+<div CLASS="layout">
+    <div class="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">copyright</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li > <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">认证原创</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./imageAuthor.html">认证资产</a></li>
+                            </ul></li>
+                        <li><a href="./userindex.html">我的主页</a></li>
+                        <li><a href="./balancelistt.html">我的资产</a></li>
+                        <li  class="active"><a href="auctionlistt.html">交易所</a></li>
+                        <li><a href="./mytrans.html">我的版权交易</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="img_list">
+
+        </div>
+        <div class="notice_list">
+            <h3>欢迎来到交易所</h3>
+            <div class="sousuo">
+                请输入资产拥有者：
+                <input type="text" name="owner">
+                <a  class="sousuo_chao">搜索</a>
+            </div>
+            <div class="line"></div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【版权拥有者】资产名称
+            <ul class="containerlist">
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../assets/jquery/jquery.js"></script>
+<script src="../assets/bootstrap/dist/js/bootstrap.js"></script>
+<script>
+    $(function(){
+
+        var ownname;
+        $.ajax({
+            url:"/session",
+            type:"get",
+            success:function(data){
+                console.log(data);
+                if(data.errno!=0){
+                    window.location.href="../";
+                }else{
+                    ownname=data.data.name;
+                }
+
+            }
+        });
+        $(".sousuo_chao").click(function(){
+            var owner=document.getElementsByName("owner").value;
+            $.ajax({
+                url:"/auctions",
+                type:"get",
+                data:{
+                    own:owner
+                },
+                success:function(data) {
+                    console.log(data);
+                    var html = "";
+                    for (var i = 0; i < data.data.length; i++) {
+                        html += "<li><div>【"+data.data[i].username+"】"+data.data[i].title;
+                        if(data.data[i].username!=ownname){
+                            html += " <a  class='trancopyright' data-tokenid='" + data.data[i].token_id + "' data-pixhash='" + data.data[i].content_hash + "'>申请版权所有</a>";
+                            html += "<a  class='usedown' data-tokenid='" + data.data[i].token_id + "' data-title='" + data.data[i].title + "'data-pixhash='" + data.data[i].content_hash + "' >试用</a>";
+                            html += "<a  class='buyy' data-tokenid='" + data.data[i].token_id + "' data-pixhash='" + data.data[i].content_hash + "' data-title='" + data.data[i].title + "' >购买</a>";
+                            html += "<a  class='downloadd' data-tokenid='" + data.data[i].token_id + "' data-title='" + data.data[i].title + "' >下载</a></div></li>";
+                        }else{
+                            html += "<a  class='revoketran' data-tokenid='" + data.data[i].token_id + "' >取消交易</a>";
+                        }
+                        $(".containerlist").html(html);
+                    }
+                }
+            })
+        });
+        $(".containerlist").on("click",".buyy",function(){
+            var n=confirm("copyright©版权声明：购买产品后，可用于商用\n是否购买？");
+            var title = this.dataset['title'];
+            var titlesp=title.split(".");
+            var titleend=titlesp[titlesp.length-1];
+            var flag=0;
+            switch(titleend){
+                case "jpg":flag=3;break;
+                case "txt":flag=1;break;
+                case "png":flag=3;break;
+                case "xls":flag=2;break;
+                case "doc":flag=3;break;
+                case "ppt":flag=3;break;
+                case "mp3":flag=6;break;
+                case "mp4":flag=15;break;
+                case "avi":flag=15;break;
+                case "zip":flag=5;break;
+                case "exe":flag=10;break;
+                default :flag=3;
+            }
+            var m=confirm("copyright©版权声明：购买产品需要花费"+flag+"¥，可用于商用\n是否购买？");
+            alert("人民币支付功能尚未开发！");
+            if(n==true&&m==true){
+                $(this).parent().children("a").css('display','inline-block');
+                var tokenID = this.dataset['tokenid'];
+                var pixhash = this.dataset['pixhash'];
+                $.ajax({
+                    url:"/buy",
+                    type:"get",
+                    data:{
+                        tokenid:tokenID,
+                        hhash:pixhash
+                    },
+                    success:function(data) {
+                        if(data.errno==0){
+                            alert("购买成功！\n请记住以下秘钥，点击下载，输入秘钥下载\n资产秘钥："+data.data.cpass+"\n下载码："+data.data.apass);
+                        }else{
+                            alert("购买失败！"+data.errno+data.errmsg);
+                        }
+                    }
+                })
+            }
+
+        });
+        $(".containerlist").on("click",".trancopyright",function(){
+            var tokenID = this.dataset['tokenid'];
+            var pixhash = this.dataset['pixhash'];
+            var n=confirm("copyright©\n版权转让成功后将支付原版权拥有者1以太币，是否申请？");
+            var m =confirm("请再次确认，是否愿意支付版权费1 ETH 给版权拥有者？");
+            if(n==true && m==true){
+                $.ajax({
+                    url:"/apply",
+                    type:"get",
+                    data:{
+                        tokenid:tokenID,
+                        hash:pixhash
+                    },
+                    success:function(data) {
+                        if(data.errno==0){
+                            alert("提交申请成功，请耐心等待");
+                        }else{
+                            alert("提交申请失败！"+data.errno+data.errmsg);
+                        }
+                    }
+                })
+            }
+
+        });
+        $(".containerlist").on("click",".revoketran",function(){
+            var tokenID = this.dataset['tokenid'];
+            $.ajax({
+                url:"/revoke",
+                type:"get",
+                data:{
+                    tokenid:tokenID,
+                },
+                success:function(data) {
+                    alert("已取消！");
+                }
+            })
+
+        });
+        var curPath = window.document.location.href;
+        var pathName = window.document.location.pathname;
+        var pos = curPath.indexOf(pathName);
+        var localhostPaht = curPath.substring(0, pos);
+        $(".containerlist").on("click",".downloadd",function(){
+            var tokenID = this.dataset['tokenid'];
+            var title = this.dataset['title'];
+
+            var ccpass = window.prompt("请输入资产秘钥","");
+            var aapass = window.prompt("请输入下载码","");
+
+
+            $.ajax({
+                url:"/down",
+                type:"get",
+                data:{
+                    tokenid:tokenID,
+                    Title:title,
+                    cpass:ccpass,
+                    apass:aapass
+                },
+                success:function(data) {
+                        if(data.errno==0){
+                            var hrefstring=localhostPaht+"/downfile?Title="+title;
+                            var htmll="<a  id='dianji' download='' href='"+hrefstring+"'></a>";
+                            $(".container").append(htmll);
+                            $("#dianji")[0].click();
+                            $("#dianji").remove();
+                        }else{
+                            alert("下载失败"+data.errno+data.errmsg)
+                        }
+
+                }
+            })
+
+        });
+
+        $(".containerlist").on("click",".usedown",function(){
+            var n=confirm("copyright©版权声明：\n未购买产品，产品仅可用于个人学习参考，不能商用\n违反者根据版权相关法律追究法律责任\n是否点击试用？");
+            if(n==true){
+                var tokenID = this.dataset['tokenid'];
+                var pixhash = this.dataset['pixhash'];
+                var title = this.dataset['title'];
+
+                $.ajax({
+                    url:"/buy",
+                    type:"get",
+                    data:{
+                        tokenid:tokenID,
+                        hhash:pixhash
+                    },
+                    success:function(data) {
+                        if(data.errno==0){
+                            alert("请记住秘钥，在之后步骤中输入！\n资产秘钥："+data.data.cpass+"\n下载码："+data.data.apass);
+                            var ccpass = window.prompt("请输入资产秘钥","");
+                            var aapass = window.prompt("请输入下载码","");
+                            $.ajax({
+                                url:"/down",
+                                type:"get",
+                                data:{
+                                    tokenid:tokenID,
+                                    Title:title,
+                                    cpass:ccpass,
+                                    apass:aapass
+                                },
+                                success:function(data) {
+                                    if(data.errno==0){
+                                        var hrefstring=localhostPaht+"/downfile?Title="+title;
+                                        var htmll="<a  id='dianji' download='' href='"+hrefstring+"'></a>";
+                                        $(".container").append(htmll);
+                                        $("#dianji")[0].click();
+                                        $("#dianji").remove();
+                                    }
+
+                                }
+                            })
+                        }else{
+                            alert("下载失败！"+data.errno+data.errmsg);
+                        }
+
+                    }
+                });
+
+
+            }
+
+        });
+    })
+</script>
+</body>
+</html>
