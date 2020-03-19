@@ -48,7 +48,7 @@
             <div class="sousuo">
                 请输入资产拥有者：
                 <input type="text" name="owner">
-                <a  class="sousuo_chao">搜索</a>
+                <a class="sousuo_chao">搜索</a>
             </div>
             <div class="line"></div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【版权拥有者】资产名称
@@ -77,7 +77,8 @@
             }
         });
         $(".sousuo_chao").click(function(){
-            var owner=document.getElementsByName("owner").value;
+            var owner=document.getElementsByName("owner")[0].value;
+            console.log(owner)
             $.ajax({
                 url:"/auctions",
                 type:"get",
@@ -88,7 +89,7 @@
                     console.log(data);
                     var html = "";
                     for (var i = 0; i < data.data.length; i++) {
-                        html += "<li><div>【"+data.data[i].username+"】"+data.data[i].title;
+                        html += "<li><div>【"+data.data[i].username +"】"+data.data[i].title;
                         if(data.data[i].username!=ownname){
                             html += " <a  class='trancopyright' data-tokenid='" + data.data[i].token_id + "' data-pixhash='" + data.data[i].content_hash + "'>申请版权所有</a>";
                             html += "<a  class='usedown' data-tokenid='" + data.data[i].token_id + "' data-title='" + data.data[i].title + "'data-pixhash='" + data.data[i].content_hash + "' >试用</a>";

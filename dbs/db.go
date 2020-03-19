@@ -3,28 +3,25 @@ package dbs
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"go-copyright-p1/configs"
 	_ "strconv"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 type Account struct {
-		Email string  `json:"email"`
-		IdentityID string  `json:"identity_id"`
-		UserName string  `json:"username"`
-		
-	}
+	Email      string `json:"email"`
+	IdentityID string `json:"identity_id"`
+	UserName   string `json:"username"`
+}
 type Content struct {
-		Title string  `json:"title"`
-		Content string  `json:"content"`
-		ContentHash string  `json:"content_hash"`
-		
-	}	
+	Title       string `json:"title"`
+	Content     string `json:"content"`
+	ContentHash string `json:"content_hash"`
+}
 type Auction struct {
-		ContentHash string  `json:"content_hash"`
-		TokenID int64  `json:"token_id"`
-	}	
-
+	ContentHash string `json:"content_hash"`
+	TokenID     int64  `json:"token_id"`
+}
 
 //数据库连接的全局变量
 var DBConn *sql.DB
@@ -99,12 +96,12 @@ func Create(sql string) (int64, error) {
 }
 
 //封装content结构，防止网页sql注入
-func (ctx *Content) AddContent() error{
-	_,err :=DBConn.Exec("insert into content(title,content,content_hash) values(?,?,?)",ctx.Title,ctx.Content,ctx.ContentHash)
-	if err !=nil{
-		fmt.Println("failed to insert content",err)
+func (ctx *Content) AddContent() error {
+	_, err := DBConn.Exec("insert into content(title,content,content_hash) values(?,?,?)", ctx.Title, ctx.Content, ctx.ContentHash)
+	if err != nil {
+		fmt.Println("failed to insert content", err)
 		return err
 	}
 	return nil
-	
+
 }
