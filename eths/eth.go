@@ -40,7 +40,7 @@ func NewAcc(pass, connstr string) (string, error) {
 	//转账10eth
 	var i int
 	for i = 0; i < 10; i++ {
-		_, err = cli.EthSendTransaction(ethrpc.T{From: "0xac0c1ea39d5027e4f8d673531a3aa72a1c7b2219", To: account, Value: ethrpc.Eth1()})
+		_, err = cli.EthSendTransaction(ethrpc.T{From: "0xb56412245a65b0aec433f655f9bcac137ef4d162", To: account, Value: ethrpc.Eth1()})
 		if err != nil {
 			fmt.Println("失败 to tran", err)
 			return "", err

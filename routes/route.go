@@ -238,7 +238,10 @@ func Upload(c echo.Context) error {
 
 	//写入资产
 	//操作数据库插入
-	content.AddContent()
+	if err = content.AddContent(); err != nil {
+		resp.Errno = err.Error()
+		return err
+	}
 
 	sess, _ := session.Get("session", c)
 	username := sess.Values["name"].(string)

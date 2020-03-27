@@ -5,6 +5,6 @@ driver  = "mysql"
 connstr = "root:123456@tcp(127.0.0.1:3306)/copyrightp1?charset=utf8"
 [eth]
 connstr ="http://localhost:8545"
-keydir ="c:/Users/14741/deepeth/keystore"
-qaAddr ="0x42"
+keydir ="c:/Users/14741/deepeth/node1/keystore"
+qaAddr ="0x66f4Cdb64F99096C6564809d67805626C5903C59"
 

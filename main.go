@@ -37,7 +37,9 @@ func main() {
 		Level: 5,
 	}))
 	EchoObj.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
+
 	go eths.EventSubscrib("ws://localhost:8546", configs.Config.Eth.QaAddr)
+
 	staticFile()
 
 	//注册
