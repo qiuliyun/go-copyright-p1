@@ -81,15 +81,15 @@
 
 ## 设置回调函数方便查看合约部署情况
 
-contractInstance = myContract.new({data: bytecode, gas: 1000000, from: eth.accounts[0]}, function(e, contract){
-  if(!e){
-    if(!contract.address){
-      console.log("Contract transaction send: Transaction Hash: "+contract.transactionHash+" waiting to be mined...");
-     }else{
-      console.log("Contract mined! Address: "+contract.address);
-      console.log(contract);
-     }
-   }else{
-     console.log(e)
-   }
- })
+        contractInstance = myContract.new({data: bytecode, gas: 1000000, from: eth.accounts[0]}, function(e, contract){
+        if(!e){
+        if(!contract.address){
+        console.log("Contract transaction send: Transaction Hash: "+contract.transactionHash+" waiting to be mined...");
+        }else{
+        console.log("Contract mined! Address: "+contract.address);
+        console.log(contract);
+        }
+        }else{
+        console.log(e)
+        }
+        })
